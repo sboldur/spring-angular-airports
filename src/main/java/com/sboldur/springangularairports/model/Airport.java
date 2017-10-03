@@ -1,5 +1,6 @@
 package com.sboldur.springangularairports.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import javax.persistence.*;
@@ -30,6 +31,7 @@ public class Airport implements Serializable {
     @Column
     private String municipality;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "iso_country", referencedColumnName = "code")
     private Country country;

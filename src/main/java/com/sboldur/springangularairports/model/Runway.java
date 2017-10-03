@@ -1,5 +1,7 @@
 package com.sboldur.springangularairports.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -21,6 +23,7 @@ public class Runway implements Serializable {
     @Column
     private String leIdent;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "AIRPORT_REF", referencedColumnName = "ID")
     private Airport airport;

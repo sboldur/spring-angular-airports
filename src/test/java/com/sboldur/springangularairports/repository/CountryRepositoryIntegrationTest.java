@@ -36,33 +36,6 @@ public class CountryRepositoryIntegrationTest {
     }
 
     @Test
-    public void shouldReturnAirportsAndRunwaysByCountryName(){
-        Country country = countryRepository.findCountryByCodeOrName(null, "Austria");
-        Set<Airport> airports = country.getAirports();
-        Set<Runway> runways = new HashSet<>();
-        for (Airport airport : airports){
-            runways.addAll(airport.getRunways());
-        }
-
-        assertThat(country).isNotNull();
-        assertThat(airports.size()).isEqualTo(8);
-        assertThat(runways.size()).isEqualTo(4);
-    }
-
-    @Test
-    public void shouldReturnAirportsAndRunwaysByCountryCode(){
-        Country country = countryRepository.findCountryByCodeOrName("AT", null);
-        assertThat(country).isNotNull();
-        Set<Airport> airports = country.getAirports();
-        assertThat(airports.size()).isEqualTo(8);
-        Set<Runway> runways = new HashSet<>();
-        for (Airport airport : airports){
-            runways.addAll(airport.getRunways());
-        }
-        assertThat(runways.size()).isEqualTo(4);
-    }
-
-    @Test
     public void shouldReturnTop2CountriesByHighestNoOfAirports(){
         List<CountryWithAirportsCount> topCountries = countryRepository.findTopCountriesWithHighestNoOfAirports(new PageRequest(0,2));
 
