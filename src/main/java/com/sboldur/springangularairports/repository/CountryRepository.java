@@ -14,10 +14,10 @@ public interface CountryRepository extends JpaRepository<Country, Long> {
 
     Country findCountryByCodeOrName(String code, String name);
 
-    @Query("SELECT new com.sboldur.springangularairports.dto.CountryWithAirportsCount(country, count(airports)) FROM Country country LEFT join country.airports airports group by country order by count(airports) DESC")
+    @Query("SELECT new com.sboldur.springangularairports.dto.CountryWithAirportsCount(country, count(airports)) FROM Country country LEFT join country.airports airports group by country order by count(airports) DESC, country.code ASC")
     List<CountryWithAirportsCount> findTopCountriesWithHighestNoOfAirports(Pageable pageable);
 
-    @Query("SELECT new com.sboldur.springangularairports.dto.CountryWithAirportsCount(country, count(airports)) FROM Country country  LEFT join country.airports airports group by country order by count(airports) ASC")
+    @Query("SELECT new com.sboldur.springangularairports.dto.CountryWithAirportsCount(country, count(airports)) FROM Country country  LEFT join country.airports airports group by country order by count(airports) ASC, country.code ASC")
     List<CountryWithAirportsCount> findTopCountriesWithLowestNoOfAirports(Pageable pageable);
 
 }

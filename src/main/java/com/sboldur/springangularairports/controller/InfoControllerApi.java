@@ -17,6 +17,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api")
+@CrossOrigin(origins = "http://localhost:4200")
 public class InfoControllerApi {
     private static final Logger logger = LoggerFactory.getLogger(InfoControllerApi.class);
 
@@ -35,7 +36,7 @@ public class InfoControllerApi {
         return new ResponseEntity<List<Airport>>(airports, HttpStatus.OK);
     }
 
-    @ApiOperation(value = "Retrieve varius reports")
+    @ApiOperation(value = "Retrieve various reports")
     @RequestMapping(value = "/reports", method = RequestMethod.GET)
     public ResponseEntity<ReportResponse> getReport(@RequestParam(value = "topNo", defaultValue = "10") int topNo) {
         logger.info("Building report response");
