@@ -48,7 +48,7 @@ public class InfoControllerApiIntegrationTest {
     public void shouldRetrieveAirportsAndRunwaysByCountryCodeOrName() throws Exception {
         ObjectMapper objectMapper = new ObjectMapper();
         MockHttpServletResponse queryResponse = mockMvc.perform(MockMvcRequestBuilders
-                .get("/query/AT")
+                .get("/api/query/AT")
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andReturn()
@@ -69,7 +69,7 @@ public class InfoControllerApiIntegrationTest {
     public void shouldRetrieveReports() throws Exception {
         ObjectMapper objectMapper = new ObjectMapper();
         MockHttpServletResponse reportHttpResponse = mockMvc.perform(MockMvcRequestBuilders
-                .get("/reports?topNo=3")
+                .get("/api/reports?topNo=3")
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andReturn()
@@ -88,7 +88,7 @@ public class InfoControllerApiIntegrationTest {
     public void shouldHandleCountryEntityNotFound() throws Exception {
         ObjectMapper objectMapper = new ObjectMapper();
         MockHttpServletResponse queryResponse = mockMvc.perform(MockMvcRequestBuilders
-                .get("/query/Zb")
+                .get("/api/query/Zb")
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andReturn()
@@ -105,7 +105,7 @@ public class InfoControllerApiIntegrationTest {
     public void shouldHandleInvalidTopNumber() throws Exception {
         ObjectMapper objectMapper = new ObjectMapper();
         MockHttpServletResponse reportHttpResponse = mockMvc.perform(MockMvcRequestBuilders
-                .get("/reports?topNo=0")
+                .get("/api/reports?topNo=0")
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andReturn()

@@ -61,7 +61,7 @@ public class InfoControllerApiTest {
         Mockito.when(airportServiceMock.getByCountryCodeOrName(Mockito.anyString(),Mockito.anyString())).thenReturn(airports);
 
         mockMvc.perform(MockMvcRequestBuilders
-                .get("/query/AT")
+                .get("/api/query/AT")
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON));
 
@@ -81,7 +81,7 @@ public class InfoControllerApiTest {
         Mockito.when(countryServiceMock.getRunwaySurfacesPerAllCountries()).thenReturn(runwaySurfacesPerCountry);
         Mockito.when(runwayServiceMock.getTopNMostCommonIdentifications(Mockito.anyInt())).thenReturn(Arrays.asList(new RunwayWithIdentificationsCount("ident1", 3L)));
         mockMvc.perform(MockMvcRequestBuilders
-                .get("/reports")
+                .get("/api/reports")
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON));
 
@@ -99,7 +99,7 @@ public class InfoControllerApiTest {
     public void shouldCatchInvalidTop() throws Exception {
         Mockito.when(countryServiceMock.getTopNCountriesWithHighestNoOfAirports(Mockito.anyInt())).thenThrow(new InvalidTopException("invalid top number"));
         mockMvc.perform(MockMvcRequestBuilders
-                .get("/reports")
+                .get("/api/reports")
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON));
         Mockito.verify(countryServiceMock, Mockito.times(1)).getTopNCountriesWithHighestNoOfAirports(Mockito.anyInt());
@@ -113,7 +113,7 @@ public class InfoControllerApiTest {
         Mockito.when(airportServiceMock.getByCountryCodeOrName(Mockito.anyString(),Mockito.anyString())).thenThrow(new EntityNotFoundException("No country with this code was found"));
 
         mockMvc.perform(MockMvcRequestBuilders
-                .get("/query/AT")
+                .get("/api/query/AT")
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON));
 
