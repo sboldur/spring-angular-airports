@@ -1,8 +1,13 @@
 package com.sboldur.springangularairports.dto;
 
-public class RunwayWithIdentificationsCount {
+import java.io.Serializable;
+
+public class RunwayWithIdentificationsCount implements Serializable {
     private String identification;
     private Long identificationsCount;
+
+    public RunwayWithIdentificationsCount() {
+    }
 
     public RunwayWithIdentificationsCount(String identification, Long identificationsCount) {
         this.identification = identification;
