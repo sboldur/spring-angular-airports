@@ -11,13 +11,16 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {LoadingModule} from "ngx-loading";
+import { NavbarComponent } from './navbar/navbar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     QueryComponent,
-    ReportComponent
+    ReportComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
@@ -28,6 +31,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
     ModalModule.forRoot(),
     FormsModule,
     ReactiveFormsModule,
+    LoadingModule
   ],
   exports:[BsDropdownModule, TooltipModule, ModalModule],//so become available to other modules as well
   providers: [],
