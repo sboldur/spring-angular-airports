@@ -1,53 +1,69 @@
-<div class="container top50">
-  <ngx-loading [show]="loading" ></ngx-loading>
-  <form #fetchAirports="ngForm" novalidate>
-    <div class="row form-group">
-      <div class="col-xs-6">
-        <label for="countryCodeOrName">Type in the country code or name you want to fetch all airports and
-          runways</label>
-        <input type="text" class="form-control" id="countryCodeOrName" name="countryCodeOrName" ngModel
-               #countryCodeOrName="ngModel" required>
-      </div>
-    </div>
+<div class="container top70">
+  <ngx-loading [show]="loading"></ngx-loading>
 
+  <div class="input-group-lg">
     <div class="row">
-      <div class="col-xs-4">
-        <button type="button" class="btn btn-primary" [disabled]="!countryCodeOrName.valid"
-                (click)="getAirportsByCountry(countryCodeOrName.value)">
-          Fetch airports and runways
-        </button>
+      <div class="input-group col-lg-12">
+        <input type="text" class="form-control" id="countryCodeOrName" name="countryCodeOrName" ngModel
+               placeholder="Type in the country code or name for which you want to fetch all airports and runways..."
+               #countryCodeOrName="ngModel" required>
+        <span class="input-group-btn">
+               <button class="btn btn-secondary" type="button" [disabled]="!countryCodeOrName.valid"
+                       (click)="getAirportsByCountry(countryCodeOrName.value)">Go!</button>
+        </span>
       </div>
     </div>
-  </form>
 
-  <div class="row" *ngIf="airportsWithRunways">
-    <div class="col-xs-12">
-      <table class="table table-responsive">
-        <tr>
-          <th>Airport ID</th>
-          <th>Airport Name</th>
-          <th>Type</th>
-          <th>Runways</th>
-        </tr>
-
-        <tr *ngFor="let airport of airportsWithRunways">
-          <td><strong [innerText]="airport.id"></strong></td>
-          <td><p [innerText]="airport.name"></p></td>
-          <td><p [innerText]="airport.type"></p></td>
-          <td>
-            <table class="table table-responsive" *ngIf="airport.runways.length>0">
-              <tr>
-                <th>ID</th>
-                <th>surface</th>
-              </tr>
-              <tr *ngFor="let runway of airport.runways">
-                <td><strong [innerText]="runway.id"></strong></td>
-                <td><p [innerText]="runway.surface"></p></td>
-              </tr>
-            </table>
-          </td>
-        </tr>
-      </table>
+    <div class='row top30' *ngIf="airportsWithRunways">
+      <div class="panel panel-default">
+        <div class='panel-heading'>Airports and Runways List</div>
+        <div class='panel-body'>
+          <table class="table table-bordered table-condensed">
+            <thead>
+            <th>Airport ID</th>
+            <th>Airport Name</th>
+            <th>Type</th>
+            <th>Runways</th>
+            </thead>
+            <tbody>
+            <tr *ngFor="let airport of pageItems">
+              <td><strong [innerText]="airport.id"></strong></td>
+              <td><p [innerText]="airport.name"></p></td>
+              <td><p [innerText]="airport.type"></p></td>
+              <td>
+                <table class="table table-bordered table-condensed" *ngIf="airport.runways.length>0">
+                  <thead>
+                  <th>ID</th>
+                  <th>surface</th>
+                  </thead>
+                  <tbody>
+                  <tr *ngFor="let runway of airport.runways">
+                    <td><strong [innerText]="runway.id"></strong></td>
+                    <td><p [innerText]="runway.surface"></p></td>
+                  </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+          <div class="btn-toolbar" role="toolbar">
+            <div class="btn-group">
+              <label ngClass="top10">Page {{currentIndex}}/{{pageNumber}}</label>
+            </div>
+            <div class="btn-group pull-right">
+              <ul class="pagination">
+                <li [ngClass]="{'disabled': (currentIndex == 1 || pageNumber == 0)}">
+                  <button (click)="prevPage()">Prev</button>
+                </li>
+                <li [ngClass]="{'disabled': (currentIndex == pageNumber || pageNumber == 0)}">
+                  <button (click)="nextPage()">Next</button>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

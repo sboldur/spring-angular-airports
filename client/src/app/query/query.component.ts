@@ -10,12 +10,35 @@ import {Airport} from "../shared/model/Airport";
 })
 export class QueryComponent implements OnInit {
   airportsWithRunways: Array<Airport>;
+  pageItems: Array<Airport>;
   loading = false;
+  pages : number;
+  pageSize : number = 5;
+  pageNumber : number = 0;
+  currentIndex : number = 1;
+  pagesIndex : Array<number>;
+  pageStart : number = 1;
 
   constructor(private queryService: QueryService) {
   }
 
-  ngOnInit() {
+  ngOnInit() {  }
+
+  init(){
+    this.currentIndex = 1;
+    this.pageStart = 1;
+    this.pageSize = 5;
+    this.pages = 1;
+
+    this.pageNumber = parseInt(""+ (this.airportsWithRunways.length / this.pageSize));
+    if(this.airportsWithRunways.length % this.pageSize != 0){
+      this.pageNumber ++;
+    }
+
+    if(this.pageNumber  < this.pages){
+      this.pages =  this.pageNumber;
+    }
+    this.refreshItems();
   }
 
   getAirportsByCountry(codeOrName: String) {
@@ -23,6 +46,7 @@ export class QueryComponent implements OnInit {
     this.queryService.getAirportsByCountry(codeOrName).subscribe(
       data => {
         this.airportsWithRunways = data;
+        this.init();
         this.loading = false;
       },
       error => {
@@ -32,4 +56,36 @@ export class QueryComponent implements OnInit {
     )
   }
 
+  refreshItems(){
+    this.pageItems = this.airportsWithRunways.slice((this.currentIndex - 1)*this.pageSize, (this.currentIndex) * this.pageSize);
+    this.pagesIndex =  this.fillArray();
+  }
+
+  fillArray(): any{
+    let obj = Array();
+    for(let index = this.pageStart; index< this.pageStart + this.pages; index ++) {
+      obj.push(index);
+    }
+    return obj;
+  }
+
+  prevPage(){
+    if(this.currentIndex>1){
+      this.currentIndex --;
+    }
+    if(this.currentIndex < this.pageStart){
+      this.pageStart = this.currentIndex;
+    }
+    this.refreshItems();
+  }
+
+  nextPage(){
+    if(this.currentIndex < this.pageNumber){
+      this.currentIndex ++;
+    }
+    if(this.currentIndex >= (this.pageStart + this.pages)){
+      this.pageStart = this.currentIndex - this.pages + 1;
+    }
+    this.refreshItems();
+  }
 }

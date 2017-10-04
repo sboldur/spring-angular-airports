@@ -1,94 +1,119 @@
-<div class=" top50">
+<div class=" top70">
   <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '14px' }"></ngx-loading>
 
 
-  <!--<div class="topReport" *ngIf="reportResponse">
-    <h1>Top 10 countries with highest no. of airports</h1>
-    <div class="row">
-      <div class="col-xs-12">
-        <table class="table table-responsive">
-          <tr>
-            <th>Country ID</th>
-            <th>Country Name</th>
-            <th>Country code</th>
-            <th>No. of airports</th>
-          </tr>
+  <div class="row" *ngIf="reportResponse">
+    <div class="panel panel-default">
+      <div class='panel-heading'>Top 10 countries with highest no. of airports</div>
+      <div class='panel-body'>
+        <table class="table table-bordered table-condensed">
+          <thead>
+          <th>Country ID</th>
+          <th>Country Name</th>
+          <th>Country code</th>
+          <th>No. of airports</th>
+          </thead>
+          <tbody>
           <tr *ngFor="let entry of reportResponse.countriesWithHighestNoOfAirports">
             <td><strong [innerText]="entry.country.id"></strong></td>
             <td><p [innerText]="entry.country.name"></p></td>
             <td><p [innerText]="entry.country.code"></p></td>
             <td><p [innerText]="entry.airportsCount"></p></td>
           </tr>
+          </tbody>
         </table>
       </div>
     </div>
   </div>
 
-  <div class="topReport" *ngIf="reportResponse">
-    <h1>Top 10 countries with lowest no. of airports</h1>
-    <div class="row">
-      <div class="col-xs-12">
-        <table class="table table-responsive">
-          <tr>
-            <th>Country ID</th>
-            <th>Country Name</th>
-            <th>Country code</th>
-            <th>No. of airports</th>
-          </tr>
+  <div class="row top30" *ngIf="reportResponse">
+    <div class="panel panel-default">
+      <div class='panel-heading'>Top 10 countries with lowest no. of airports</div>
+      <div class='panel-body'>
+        <table class="table table-bordered table-condensed">
+          <thead>
+          <th>Country ID</th>
+          <th>Country Name</th>
+          <th>Country code</th>
+          <th>No. of airports</th>
+          </thead>
+          <tbody>
           <tr *ngFor="let entry of reportResponse.countriesWithLowestNoOfAirports">
             <td><strong [innerText]="entry.country.id"></strong></td>
             <td><p [innerText]="entry.country.name"></p></td>
             <td><p [innerText]="entry.country.code"></p></td>
             <td><p [innerText]="entry.airportsCount"></p></td>
           </tr>
-        </table>
-      </div>
-    </div>
-  </div>-->
-
-  <div class="countryRunwayTypes" *ngIf="reportResponse">
-    <h1>Types of runways per country</h1>
-    <div class="row">
-      <div class="col-xs-12">
-        <table class="table table-responsive">
-          <tr>
-            <th>Country ID</th>
-            <th>Country Name</th>
-            <th>Country code</th>
-            <th>Runway surface type</th>
-          </tr>
-          <tr *ngFor="let countryKey of countries ">
-            <td><strong [innerText]="countryKey.id"></strong></td>
-            <td><p [innerText]="countryKey.name"></p></td>
-            <td><p [innerText]="countryKey.code"></p></td>
-            <td>
-              <div class="surfaceTypes" *ngFor="let surface of reportResponse.runwaySurfacesPerCountry[mapCountryToJSon(countryKey)]">
-                <p [innerText]="surface"></p>
-              </div>
-            </td>
-          </tr>
+          </tbody>
         </table>
       </div>
     </div>
   </div>
 
-  <!--<div class="topReport" *ngIf="reportResponse">
-    <h1>Top 10 most common runway identification</h1>
-    <div class="row">
-      <div class="col-xs-12">
-        <table class="table table-responsive">
-          <tr>
-            <th>Identification</th>
-            <th>No. of occurrences</th>
-          </tr>
+  <div class="row top30" *ngIf="reportResponse">
+    <div class="panel panel-default">
+      <div class='panel-heading'>Top 10 most common runway identification</div>
+      <div class='panel-body'>
+        <table class="table table-bordered table-condensed">
+          <thead>
+          <th>Identification</th>
+          <th>No. of occurrences</th>
+          </thead>
+          <tbody>
           <tr *ngFor="let entry of reportResponse.mostCommonRunwayIdentifications">
             <td><strong [innerText]="entry.identification"></strong></td>
             <td><p [innerText]="entry.identificationsCount"></p></td>
           </tr>
+          </tbody>
         </table>
       </div>
     </div>
   </div>
--->
+
+  <div class="row top30" *ngIf="countries">
+    <div class="panel panel-default">
+      <div class='panel-heading'>Types of runways per country</div>
+      <div class='panel-body'>
+        <table class="table table-bordered table-condensed">
+          <thead>
+          <th>Country ID</th>
+          <th>Country Name</th>
+          <th>Country code</th>
+          <th>Runway surface type</th>
+          </thead>
+          <tbody>
+          <tr *ngFor="let countryKey of countryWithRunwaysPageItems ">
+            <td><strong [innerText]="countryKey.id"></strong></td>
+            <td><p [innerText]="countryKey.name"></p></td>
+            <td><p [innerText]="countryKey.code"></p></td>
+            <td>
+              <ul class="surfaceTypes"
+                  *ngFor="let surface of reportResponse.runwaySurfacesPerCountry[mapCountryToJSon(countryKey)]">
+                <li [innerText]="surface"></li>
+              </ul>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+
+        <div class="btn-toolbar" role="toolbar">
+          <div class="btn-group">
+            <label ngClass="top10">Page {{currentIndex}}/{{pageNumber}}</label>
+          </div>
+          <div class="btn-group pull-right">
+            <ul class="pagination">
+              <li [ngClass]="{'disabled': (currentIndex == 1 || pageNumber == 0)}">
+                <button (click)="prevPage()">Prev</button>
+              </li>
+              <li [ngClass]="{'disabled': (currentIndex == pageNumber || pageNumber == 0)}">
+                <button (click)="nextPage()">Next</button>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </div>
 
