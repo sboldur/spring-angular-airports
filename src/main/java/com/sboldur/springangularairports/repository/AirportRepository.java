@@ -10,7 +10,7 @@ import java.util.List;
 public interface AirportRepository extends JpaRepository<Airport, Long> {
 
 
-    List<Airport> findByCountryCodeOrCountryName(String code, String name);
+    List<Airport> findByCountryCodeIgnoreCaseOrCountryNameIgnoreCase(String code, String name);
 
 
 }

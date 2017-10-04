@@ -31,6 +31,6 @@ public class AirportServiceImpl implements AirportService {
             logger.info("No country with code {} or name {} was found", code, name);
             throw new EntityNotFoundException("No country with code " + code + " or name " + name + " was found");
         }
-        return airportRepository.findByCountryCodeOrCountryName(code, name);
+        return airportRepository.findByCountryCodeIgnoreCaseOrCountryNameIgnoreCase(code, name);
     }
 }

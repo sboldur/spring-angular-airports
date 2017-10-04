@@ -31,7 +31,7 @@ public class AirportRepositoryIntegrationTest {
 
     @Test
     public void shouldFindAirportsByCountryName() {
-        List<Airport> airports = airportRepository.findByCountryCodeOrCountryName("", "Austria");
+        List<Airport> airports = airportRepository.findByCountryCodeIgnoreCaseOrCountryNameIgnoreCase("", "austria");
         assertThat(airports.size()).isEqualTo(8);
 
         Set<Runway> runways = new HashSet<>();
@@ -43,7 +43,7 @@ public class AirportRepositoryIntegrationTest {
 
     @Test
     public void shouldFindAirportsByCountryCode() {
-        List<Airport> airports = airportRepository.findByCountryCodeOrCountryName("AT", "");
+        List<Airport> airports = airportRepository.findByCountryCodeIgnoreCaseOrCountryNameIgnoreCase("at", "");
         assertThat(airports.size()).isEqualTo(8);
 
         Set<Runway> runways = new HashSet<>();
