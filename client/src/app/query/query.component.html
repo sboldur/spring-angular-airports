@@ -1,0 +1,53 @@
+<div class="container top50">
+  <ngx-loading [show]="loading" ></ngx-loading>
+  <form #fetchAirports="ngForm" novalidate>
+    <div class="row form-group">
+      <div class="col-xs-6">
+        <label for="countryCodeOrName">Type in the country code or name you want to fetch all airports and
+          runways</label>
+        <input type="text" class="form-control" id="countryCodeOrName" name="countryCodeOrName" ngModel
+               #countryCodeOrName="ngModel" required>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-4">
+        <button type="button" class="btn btn-primary" [disabled]="!countryCodeOrName.valid"
+                (click)="getAirportsByCountry(countryCodeOrName.value)">
+          Fetch airports and runways
+        </button>
+      </div>
+    </div>
+  </form>
+
+  <div class="row" *ngIf="airportsWithRunways">
+    <div class="col-xs-12">
+      <table class="table table-responsive">
+        <tr>
+          <th>Airport ID</th>
+          <th>Airport Name</th>
+          <th>Type</th>
+          <th>Runways</th>
+        </tr>
+
+        <tr *ngFor="let airport of airportsWithRunways">
+          <td><strong [innerText]="airport.id"></strong></td>
+          <td><p [innerText]="airport.name"></p></td>
+          <td><p [innerText]="airport.type"></p></td>
+          <td>
+            <table class="table table-responsive" *ngIf="airport.runways.length>0">
+              <tr>
+                <th>ID</th>
+                <th>surface</th>
+              </tr>
+              <tr *ngFor="let runway of airport.runways">
+                <td><strong [innerText]="runway.id"></strong></td>
+                <td><p [innerText]="runway.surface"></p></td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
