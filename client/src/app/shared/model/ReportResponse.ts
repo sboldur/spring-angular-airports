@@ -6,6 +6,6 @@ export class ReportResponse{
   countriesWithHighestNoOfAirports : CountryWithAirportsCount[];
   countriesWithLowestNoOfAirports : CountryWithAirportsCount[];
   mostCommonRunwayIdentifications: RunwayWithIdentificationsCount[];
-  runwaySurfacesPerCountry : Map<Country, Array<String>>;
+  runwaySurfacesPerCountry : [Country, Array<String>];
 
 }
