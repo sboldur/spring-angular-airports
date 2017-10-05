@@ -34,11 +34,11 @@ public class CountryServiceTest {
 
     @Test
     public void shouldCallGetCountryByCodeOrNameOnce() {
-        Mockito.when(countryRepositoryMock.findCountryByCodeOrName(Mockito.anyString(), Mockito.anyString())).thenReturn(new Country());
+        Mockito.when(countryRepositoryMock.findCountryByCodeIgnoreCaseOrNameIgnoreCase(Mockito.anyString(), Mockito.anyString())).thenReturn(new Country());
 
         countryService.getCountryByCodeOrName("Austria");
 
-        Mockito.verify(countryRepositoryMock, Mockito.times(1)).findCountryByCodeOrName(Mockito.anyString(), Mockito.anyString());
+        Mockito.verify(countryRepositoryMock, Mockito.times(1)).findCountryByCodeIgnoreCaseOrNameIgnoreCase(Mockito.anyString(), Mockito.anyString());
     }
 
     @Test
@@ -90,9 +90,9 @@ public class CountryServiceTest {
 
     @Test(expected = EntityNotFoundException.class)
     public void shouldThrowCountryNotFound(){
-        Mockito.when(countryRepositoryMock.findCountryByCodeOrName(Mockito.any(String.class),Mockito.any(String.class))).thenReturn(null);
+        Mockito.when(countryRepositoryMock.findCountryByCodeIgnoreCaseOrNameIgnoreCase(Mockito.any(String.class),Mockito.any(String.class))).thenReturn(null);
         countryService.getCountryByCodeOrName("Austria");
 
-        Mockito.verify(countryRepositoryMock, Mockito.never()).findCountryByCodeOrName(Mockito.any(String.class),Mockito.any(String.class));
+        Mockito.verify(countryRepositoryMock, Mockito.never()).findCountryByCodeIgnoreCaseOrNameIgnoreCase(Mockito.any(String.class),Mockito.any(String.class));
     }
 }

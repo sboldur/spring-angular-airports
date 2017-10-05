@@ -12,7 +12,7 @@ import java.util.List;
 @Repository
 public interface CountryRepository extends JpaRepository<Country, Long> {
 
-    Country findCountryByCodeOrName(String code, String name);
+    Country findCountryByCodeIgnoreCaseOrNameIgnoreCase(String code, String name);
 
     @Query("SELECT new com.sboldur.springangularairports.dto.CountryWithAirportsCount(country, count(airports)) FROM Country country LEFT join country.airports airports group by country order by count(airports) DESC, country.code ASC")
     List<CountryWithAirportsCount> findTopCountriesWithHighestNoOfAirports(Pageable pageable);

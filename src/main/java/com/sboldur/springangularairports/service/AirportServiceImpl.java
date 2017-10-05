@@ -27,7 +27,7 @@ public class AirportServiceImpl implements AirportService {
     @Override
     public List<Airport> getByCountryCodeOrName(String code, String name) {
         logger.info("fetching airports by country code {} or name {}", code, name);
-        if (countryRepository.findCountryByCodeOrName(code, name) == null) {
+        if (countryRepository.findCountryByCodeIgnoreCaseOrNameIgnoreCase(code, name) == null) {
             logger.info("No country with code {} or name {} was found", code, name);
             throw new EntityNotFoundException("No country with code " + code + " or name " + name + " was found");
         }

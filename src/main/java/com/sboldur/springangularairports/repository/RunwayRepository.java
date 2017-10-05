@@ -18,6 +18,6 @@ public interface RunwayRepository extends JpaRepository<Runway, Long> {
     @Query("Select new com.sboldur.springangularairports.dto.RunwayWithIdentificationsCount(leIdent, count(leIdent)) from Runway group by leIdent order by count(leIdent) desc, leIdent asc")
     List<RunwayWithIdentificationsCount> findByMostCommonIdentifications(Pageable pageable);
 
-    @Query("select distinct runway.surface from Runway runway join runway.airport a where a.isoCountry = :isoCountry order by runway.surface asc ")
+    @Query("select distinct UPPER(runway.surface) as surface from Runway runway join runway.airport a where a.isoCountry = :isoCountry order by surface asc ")
     List<String> findDistinctRunwaySurfaceByIsoCountry(@Param("isoCountry") String isoCountry);
 }

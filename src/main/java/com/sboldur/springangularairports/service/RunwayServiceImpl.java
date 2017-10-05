@@ -39,7 +39,7 @@ public class RunwayServiceImpl implements RunwayService {
     @Override
     public List<String> getRunwaySurfacesByCountry(String countryCode) {
         logger.info("Fetching types of runway surfaces of country {}", countryCode);
-        if (countryRepository.findCountryByCodeOrName(countryCode, countryCode) == null) {
+        if (countryRepository.findCountryByCodeIgnoreCaseOrNameIgnoreCase(countryCode, countryCode) == null) {
             logger.info("Unable to fetch runway surfaces. Country {} was not found", countryCode);
             throw new EntityNotFoundException("Country with code or name: " + countryCode + " was not found ");
         }

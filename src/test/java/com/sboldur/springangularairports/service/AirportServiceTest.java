@@ -33,21 +33,21 @@ public class AirportServiceTest {
     @Test
     public void shouldCallFindAirportsByCountryCodeOrNAmeOnce(){
         List<Airport> airports = Arrays.asList(new Airport());
-        Mockito.when(countryRepositoryMock.findCountryByCodeOrName(Mockito.any(String.class),Mockito.any(String.class))).thenReturn(new Country());
+        Mockito.when(countryRepositoryMock.findCountryByCodeIgnoreCaseOrNameIgnoreCase(Mockito.any(String.class),Mockito.any(String.class))).thenReturn(new Country());
         Mockito.when(airportRepositoryMock.findByCountryCodeIgnoreCaseOrCountryNameIgnoreCase(Mockito.anyString(),Mockito.anyString())).thenReturn(airports);
 
         airportService.getByCountryCodeOrName("AT", null);
 
         Mockito.verify(airportRepositoryMock, Mockito.times(1)).findByCountryCodeIgnoreCaseOrCountryNameIgnoreCase(Mockito.anyString(),Mockito.anyString());
-        Mockito.verify(countryRepositoryMock, Mockito.times(1)).findCountryByCodeOrName(Mockito.anyString(),Mockito.anyString());
+        Mockito.verify(countryRepositoryMock, Mockito.times(1)).findCountryByCodeIgnoreCaseOrNameIgnoreCase(Mockito.anyString(),Mockito.anyString());
     }
 
     @Test(expected = EntityNotFoundException.class)
     public void shouldThrowCountryNotFound(){
-        Mockito.when(countryRepositoryMock.findCountryByCodeOrName(Mockito.any(String.class),Mockito.any(String.class))).thenReturn(null);
+        Mockito.when(countryRepositoryMock.findCountryByCodeIgnoreCaseOrNameIgnoreCase(Mockito.any(String.class),Mockito.any(String.class))).thenReturn(null);
         airportService.getByCountryCodeOrName("AT", "");
 
-        Mockito.verify(countryRepositoryMock, Mockito.times(1)).findCountryByCodeOrName(Mockito.any(String.class),Mockito.any(String.class));
+        Mockito.verify(countryRepositoryMock, Mockito.times(1)).findCountryByCodeIgnoreCaseOrNameIgnoreCase(Mockito.any(String.class),Mockito.any(String.class));
         Mockito.verify(airportRepositoryMock, Mockito.never()).findByCountryCodeIgnoreCaseOrCountryNameIgnoreCase(Mockito.any(String.class),Mockito.any(String.class));
     }
 

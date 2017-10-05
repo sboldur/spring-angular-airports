@@ -24,10 +24,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class CountryRepositoryIntegrationTest {
 
     @Autowired
-    private TestEntityManager entityManager;
-
-
-    @Autowired
     private CountryRepository countryRepository;
 
     @Test

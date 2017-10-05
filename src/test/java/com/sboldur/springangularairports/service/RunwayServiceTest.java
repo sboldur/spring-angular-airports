@@ -48,7 +48,7 @@ public class RunwayServiceTest {
     public void shouldCallGetRunwaySurfacesByCountryOnce() {
         List<String> surfaceTypes =  Arrays.asList("surface1", "surface2" );
         Mockito.when(runwayRepositoryMock.findDistinctRunwaySurfaceByIsoCountry(Mockito.any(String.class))).thenReturn(surfaceTypes);
-        Mockito.when(countryRepositoryMock.findCountryByCodeOrName(Mockito.any(String.class),Mockito.any(String.class))).thenReturn(new Country());
+        Mockito.when(countryRepositoryMock.findCountryByCodeIgnoreCaseOrNameIgnoreCase(Mockito.any(String.class),Mockito.any(String.class))).thenReturn(new Country());
         runwayService.getRunwaySurfacesByCountry("AT");
 
         Mockito.verify(runwayRepositoryMock, Mockito.times(1)).findDistinctRunwaySurfaceByIsoCountry(Mockito.any(String.class));
@@ -62,10 +62,10 @@ public class RunwayServiceTest {
 
     @Test(expected = EntityNotFoundException.class)
     public void shouldThrowCountryNotFound(){
-        Mockito.when(countryRepositoryMock.findCountryByCodeOrName(Mockito.any(String.class),Mockito.any(String.class))).thenReturn(null);
+        Mockito.when(countryRepositoryMock.findCountryByCodeIgnoreCaseOrNameIgnoreCase(Mockito.any(String.class),Mockito.any(String.class))).thenReturn(null);
         runwayService.getRunwaySurfacesByCountry("Austria");
 
-        Mockito.verify(countryRepositoryMock, Mockito.times(1)).findCountryByCodeOrName(Mockito.any(String.class),Mockito.any(String.class));
+        Mockito.verify(countryRepositoryMock, Mockito.times(1)).findCountryByCodeIgnoreCaseOrNameIgnoreCase(Mockito.any(String.class),Mockito.any(String.class));
         Mockito.verify(runwayRepositoryMock, Mockito.never()).findByMostCommonIdentifications(Mockito.any(PageRequest.class));
 
     }

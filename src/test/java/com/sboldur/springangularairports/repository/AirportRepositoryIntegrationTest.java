@@ -18,8 +18,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 @RunWith(SpringRunner.class)
 @DataJpaTest
 public class AirportRepositoryIntegrationTest {
-    @Autowired
-    private TestEntityManager entityManager;
 
     @Autowired
     private AirportRepository airportRepository;

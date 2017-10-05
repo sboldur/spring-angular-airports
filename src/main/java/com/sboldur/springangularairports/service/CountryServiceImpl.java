@@ -32,7 +32,7 @@ public class CountryServiceImpl implements CountryService {
     @Override
     public Country getCountryByCodeOrName(String codeName) {
         logger.info("finding country {}", codeName);
-        Country foundCountry = countryRepository.findCountryByCodeOrName(codeName, codeName);
+        Country foundCountry = countryRepository.findCountryByCodeIgnoreCaseOrNameIgnoreCase(codeName, codeName);
         if (foundCountry == null) {
             logger.info("Country {} was not found", codeName);
             throw new EntityNotFoundException("country " + codeName + " was not found");
