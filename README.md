@@ -1,6 +1,6 @@
 # Description
 
-Simple Web application example for managing a list of stocks using CRUD operations.
+Simple Web application example for queries and reports on stored data.
 Backend: java based REST application that uses Spring Data for exposing the following endpoints:
  * GET /api/query/{country code or name} - returns all airports and runways of the provided parameter country code or name)
  * GET /api/reports - returns the following reports type:
