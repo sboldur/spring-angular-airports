@@ -1,6 +1,14 @@
 <div class="container top70">
   <ngx-loading [show]="loading"></ngx-loading>
 
+  <div class="row">
+    <div class="col-xs-12" *ngFor="let alert of alerts">
+      <alert [type]="alert.type" dismissible="true" [dismissOnTimeout]="alert.timeout">
+        <p [innerText]="alert.msg"></p>
+      </alert>
+    </div>
+  </div>
+
   <div class="input-group-lg">
     <div class="row">
       <div class="input-group col-lg-12">

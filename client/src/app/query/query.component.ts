@@ -18,6 +18,7 @@ export class QueryComponent implements OnInit {
   currentIndex : number = 1;
   pagesIndex : Array<number>;
   pageStart : number = 1;
+  alerts: any = [];
 
   constructor(private queryService: QueryService) {
   }
@@ -52,8 +53,18 @@ export class QueryComponent implements OnInit {
       error => {
         console.log(error);
         this.loading = false;
+        this.showErrorAlert(codeOrName);
       }
     )
+  }
+
+  showErrorAlert(codeOrName:String){
+    console.log('Showing error');
+    this.alerts.push({
+      type: 'danger',
+      msg: `There is no country with code/name ${codeOrName}`,
+      timeout: 5000
+    });
   }
 
   refreshItems(){
